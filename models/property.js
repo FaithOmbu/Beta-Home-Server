@@ -69,7 +69,7 @@ const propertySchema = new Schema(
       type: Boolean,
       default: false,
     },
-    squarefeet: {
+    squareFeet: {
       type: Number,
       min: 0,
     },
