@@ -75,7 +75,7 @@ const propertySchema = new Schema(
     },
     media: {
       images: {
-        type: [String],
+        type: [String], 
       },
       video: {
         type: String,
