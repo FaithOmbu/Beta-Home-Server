@@ -92,8 +92,10 @@ const handleAddProperty = async (req, res) => {
 };
 
 const handleGetAllProperties = async (req, res) => {
-  const {location, type,  bedroom, title} =req.query
+  const {location, type,  bedroom, sort} =req.query
+
   const queryObject = {};
+  let result = Property.find(queryObject)
   if (location) {
     queryObject.location = {$regex: location, $options: "i"}
   }
@@ -103,8 +105,15 @@ const handleGetAllProperties = async (req, res) => {
   if (bedroom) {
     queryObject.bedroom = { $eq: Number(bedroom)}
   }
+  if(sort) {
+    result = result.sort(`${sort} -createdAt`)
+  } else{
+    result.sort('-createdAt')
+  }
+
 try {
-    const properties = await Property.find(queryObject).sort("-createdAt")
+   result= result.find(queryObject)
+   const properties = await result
     res.status(200).json({ success:true, properties})
 } catch (error) {
     console.log(error);
